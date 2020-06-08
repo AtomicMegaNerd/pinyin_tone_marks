@@ -386,7 +386,7 @@ mod tests {
     #[test]
     fn test_able_access_compare_match_map_key_value() {
         let pinyin_data = PinyinData::new();
-        assert_eq!(pinyin_data.match_map1["iang1"], "iāng");
+        assert_eq!(pinyin_data.match_map4["iang1"], "iāng");
     }
 
     #[test]
