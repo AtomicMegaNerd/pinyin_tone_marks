@@ -51,11 +51,12 @@ impl Config {
 ///
 ///    Append modified lines to a new list called converted which the caller can use
 ///    to output pinyin tone marks.
-pub fn do_convert(text: Vec<String>) -> Vec<String> {
+pub fn do_convert(text: &Vec<String>) -> Vec<String> {
     let data = PinyinData::new();
     let mut converted: Vec<String> = Vec::new();
 
-    for mut line in text {
+    for line in text {
+        let mut new_line: String = line.clone();
         // This string contains valid Pinyin initials and finals which
         // contain at least a vowel and a number...
         let mut search_str: String = String::new();
@@ -86,13 +87,13 @@ pub fn do_convert(text: Vec<String>) -> Vec<String> {
                 // replace the text in the line.
                 let key = search_str.as_str();
                 if data.match_map4.contains_key(key) {
-                    line = line.replace(&search_str, &data.match_map4[key]);
+                    new_line = new_line.replacen(&search_str, &data.match_map4[key], 1);
                 } else if data.match_map3.contains_key(key) {
-                    line = line.replace(&search_str, &data.match_map3[key]);
+                    new_line = new_line.replacen(&search_str, &data.match_map3[key], 1);
                 } else if data.match_map2.contains_key(key) {
-                    line = line.replace(&search_str, &data.match_map2[key]);
+                    new_line = new_line.replacen(&search_str, &data.match_map2[key], 1);
                 } else if data.match_map1.contains_key(key) {
-                    line = line.replace(&search_str, &data.match_map1[key]);
+                    new_line = new_line.replacen(&search_str, &data.match_map1[key], 1);
                 }
                 search_str.clear();
             } else {
@@ -101,8 +102,76 @@ pub fn do_convert(text: Vec<String>) -> Vec<String> {
             }
         }
 
-        log::debug!("Converted line: {}", &line);
-        converted.push(line);
+        log::debug!("Converted line: {}", &new_line);
+        converted.push(new_line);
     }
     converted
+}
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+    #[test]
+    fn convert_one_line_should_work_as_expected() {
+        let input = vec![String::from("Ni3 hao3, wo3 xing4 Ding1.")];
+        let output = vec![String::from("Nǐ hǎo, wǒ xìng Dīng.")];
+
+        assert_eq!(output, do_convert(&input));
+    }
+
+    #[test]
+    fn standalone_numbers_should_be_ignored() {
+        let input = vec![String::from("Wo3 he2 2 bei1 shui3.")];
+        let output = vec![String::from("Wǒ hé 2 bēi shuǐ.")];
+
+        assert_eq!(output, do_convert(&input));
+    }
+
+    #[test]
+    fn test_multilines_converts_properly() {
+        let input = vec![
+            String::from("Wo3 xiang3 pei3yang2 qian1bei1 de tai4du."),
+            String::from("Wo3 ye3 xiang3 bi4kai1 gao1'ao4 de tai4du!"),
+        ];
+        let output = vec![
+            String::from("Wǒ xiǎng pěiyáng qiānbēi de tàidu."),
+            String::from("Wǒ yě xiǎng bìkāi gāo'ào de tàidu!"),
+        ];
+
+        assert_eq!(output, do_convert(&input));
+    }
+
+    #[test]
+    fn test_blank_lines_and_markdown_should_be_preserved() {
+        let input = vec![
+            String::from("# Zi1liao4"),
+            String::from(""),
+            String::from("Wo3 xiang3 *pei3yang* qian1bei1 de tai4du."),
+            String::from(""),
+            String::from("Wo3 ye3 xiang3 bi4kai1 gao1'ao4 de tai4du!"),
+            String::from(""),
+        ];
+
+        let output = vec![
+            String::from("# Zīliào"),
+            String::from(""),
+            String::from("Wǒ xiǎng *pěiyang* qiānbēi de tàidu."),
+            String::from(""),
+            String::from("Wǒ yě xiǎng bìkāi gāo'ào de tàidu!"),
+            String::from(""),
+        ];
+
+        assert_eq!(output, do_convert(&input));
+    }
+
+    #[test]
+    fn test_v_replaced_by_umlaut_u() {
+        let input = vec![String::from(
+            "Xian4zai4 rang4 wo3men dou1 kao4lv4 yi2xia4 ba",
+        )];
+        let output = vec![String::from("Xiànzài ràng wǒmen dōu kàolǜ yíxià ba")];
+
+        assert_eq!(output, do_convert(&input));
+    }
 }

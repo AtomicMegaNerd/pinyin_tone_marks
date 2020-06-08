@@ -16,7 +16,7 @@ fn main() {
     });
 
     let lines = get_vec_of_strings_from_file(&config.infile);
-    let lines = do_convert(lines);
+    let lines = do_convert(&lines);
     write_vec_of_strings_to_file(&config.outfile, lines);
 
     log::info!("Conversion successful, wrote to file {}", &config.outfile);
