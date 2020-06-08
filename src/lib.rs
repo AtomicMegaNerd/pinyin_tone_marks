@@ -1,4 +1,4 @@
-pub mod data;
+mod data;
 pub mod io;
 
 use data::PinyinData;

@@ -1,6 +1,5 @@
 use std::env;
 use std::process;
-mod data;
 
 use pinyin_tone_marks::do_convert;
 use pinyin_tone_marks::io::get_vec_of_strings_from_file;

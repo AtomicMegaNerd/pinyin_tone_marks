@@ -16,10 +16,10 @@ use maplit::hashmap;
 use std::collections::HashMap;
 
 pub struct PinyinData {
-    pub match_map1: HashMap<&'static str, &'static str>,
-    pub match_map2: HashMap<&'static str, &'static str>,
-    pub match_map3: HashMap<&'static str, &'static str>,
     pub match_map4: HashMap<&'static str, &'static str>,
+    pub match_map3: HashMap<&'static str, &'static str>,
+    pub match_map2: HashMap<&'static str, &'static str>,
+    pub match_map1: HashMap<&'static str, &'static str>,
 }
 
 impl PinyinData {
