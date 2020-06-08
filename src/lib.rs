@@ -87,13 +87,13 @@ pub fn do_convert(text: &Vec<String>) -> Vec<String> {
                 // replace the text in the line.
                 let key = search_str.as_str();
                 if data.match_map4.contains_key(key) {
-                    new_line = new_line.replacen(&search_str, &data.match_map4[key], 1);
+                    new_line = new_line.replacen(&key, &data.match_map4[key], 1);
                 } else if data.match_map3.contains_key(key) {
-                    new_line = new_line.replacen(&search_str, &data.match_map3[key], 1);
+                    new_line = new_line.replacen(&key, &data.match_map3[key], 1);
                 } else if data.match_map2.contains_key(key) {
-                    new_line = new_line.replacen(&search_str, &data.match_map2[key], 1);
+                    new_line = new_line.replacen(&key, &data.match_map2[key], 1);
                 } else if data.match_map1.contains_key(key) {
-                    new_line = new_line.replacen(&search_str, &data.match_map1[key], 1);
+                    new_line = new_line.replacen(&key, &data.match_map1[key], 1);
                 }
                 search_str.clear();
             } else {
