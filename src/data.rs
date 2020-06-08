@@ -393,10 +393,13 @@ mod tests {
     fn test_able_show_vowel_in_vowels_const() {
         assert!(VOWELS.contains("a"));
         assert!(VOWELS.contains('A'));
+        assert!(!VOWELS.contains("s"));
     }
 
     #[test]
     fn test_tone_1_in_tones_const() {
         assert!(TONES.contains("1"));
+        assert!(!TONES.contains("8"));
+        assert!(!TONES.contains("a"));
     }
 }
