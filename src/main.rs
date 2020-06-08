@@ -2,8 +2,8 @@ use std::env;
 use std::process;
 
 use pinyin_tone_marks::do_convert;
-use pinyin_tone_marks::io::get_vec_of_strings_from_file;
-use pinyin_tone_marks::io::write_vec_of_strings_to_file;
+use pinyin_tone_marks::get_vec_of_strings_from_file;
+use pinyin_tone_marks::write_vec_of_strings_to_file;
 use pinyin_tone_marks::Config;
 
 fn main() {

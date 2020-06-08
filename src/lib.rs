@@ -1,6 +1,9 @@
 mod data;
 pub mod io;
 
+pub use io::get_vec_of_strings_from_file;
+pub use io::write_vec_of_strings_to_file;
+
 use data::PinyinData;
 use data::TONES;
 use data::VOWELS;
