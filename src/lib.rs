@@ -1,8 +1,8 @@
 mod data;
 pub mod io;
 
-pub use io::get_vec_of_strings_from_file;
-pub use io::write_vec_of_strings_to_file;
+pub use io::get_file_text_as_string;
+pub use io::write_string_to_text_file;
 
 use data::PinyinData;
 use data::TONES;
@@ -51,7 +51,7 @@ impl Config {
 ///
 ///    Append modified lines to a new list called converted which the caller can use
 ///    to output pinyin tone marks.
-pub fn do_convert(text: &str) -> String {
+pub fn do_convert(text: &String) -> String {
     let data = PinyinData::new();
 
     let mut new_line = String::from(text);
@@ -110,7 +110,7 @@ mod tests {
     use super::*;
     #[test]
     fn convert_one_line_should_work_as_expected() {
-        let input = "Ni3 hao3, wo3 xing4 Ding1.";
+        let input = String::from("Ni3 hao3, wo3 xing4 Ding1.");
         let output = String::from("Nǐ hǎo, wǒ xìng Dīng.");
 
         assert_eq!(output, do_convert(&input));
@@ -118,7 +118,7 @@ mod tests {
 
     #[test]
     fn standalone_numbers_should_be_ignored() {
-        let input = "Wo3 he2 2 bei1 shui3.";
+        let input = String::from("Wo3 he2 2 bei1 shui3.");
         let output = String::from("Wǒ hé 2 bēi shuǐ.");
 
         assert_eq!(output, do_convert(&input));
@@ -126,13 +126,14 @@ mod tests {
 
     #[test]
     fn test_multilines_converts_properly() {
-        let input =
-            "Wo3 xiang3 pei3yang2 qian1bei1 de tai4du.\nWo3 ye3 xiang3 bi4kai1 gao1'ao4 de tai4du!";
+        let input = String::from(
+            "Wo3 xiang3 pei3yang2 qian1bei1 de tai4du.\nWo3 ye3 xiang3 bi4kai1 gao1'ao4 de tai4du!",
+        );
 
         let output =
             String::from("Wǒ xiǎng pěiyáng qiānbēi de tàidu.\nWǒ yě xiǎng bìkāi gāo'ào de tàidu!");
 
-        assert_eq!(output, do_convert(input));
+        assert_eq!(output, do_convert(&input));
     }
 
     #[test]
@@ -160,7 +161,7 @@ mod tests {
 
     #[test]
     fn test_v_replaced_by_umlaut_u() {
-        let input = "Xian4zai4 rang4 wo3men dou1 kao4lv4 yi2xia4 ba";
+        let input = String::from("Xian4zai4 rang4 wo3men dou1 kao4lv4 yi2xia4 ba");
         let output = String::from("Xiànzài ràng wǒmen dōu kàolǜ yíxià ba");
 
         assert_eq!(output, do_convert(&input));
