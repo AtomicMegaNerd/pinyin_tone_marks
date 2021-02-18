@@ -1,5 +1,7 @@
 # Rust Pinyin Tone Mark Converter
 
+![Rust](https://github.com/AtomicMegaNerd/pinyin_tone_marks/workflows/Rust/badge.svg)
+
 ## Introduction
 
 This Rust program will take a source text file with numerical Pinyin markup (Ni3
