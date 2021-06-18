@@ -29,10 +29,12 @@ docker build -t pinyin_tone_marks:latest .
 
 ## Running
 
-Run with docker.
+Run with docker.  Use a bind mount to link your local directory with /data and then use
+the paths /data/INPUT.md and /data/OUTPUT.md so the container knows where to find the files
+inside the bind mount.
 
 ```bash
-docker run -v "$PWD:$PWD" -w "$PWD" -t pinyin_tone_marks:latest input.md output.md
+docker run -v "$PWD:/data" -t pinyin_tone_marks:latest /data/input.md /data/output.md
 ```
 
 - In this example input.md is the input file which must exist in your current
