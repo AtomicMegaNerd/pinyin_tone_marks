@@ -1,7 +1,7 @@
 name: Rust
 on:
   push:
-    branches: [ master ]
+    branches: [ "*" ]
   pull_request:
     branches: [ master ]
 env:
@@ -19,9 +19,12 @@ jobs:
     name: Push Docker image to GitHub Packages
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/master'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Get the app version
+        run: echo "APP_VERSION=$(cat VERSION)" >> $GITHUB_ENV
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
@@ -29,4 +32,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: atomicmeganerd/pinyin_tone_marks/pinyin_tone_marks
-          tag_with_ref: true
+          tags: ${APP_VERSION}:latest

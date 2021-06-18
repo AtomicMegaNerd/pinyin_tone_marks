@@ -1,4 +1,4 @@
-FROM rust:1.52.1-alpine3.13 as builder
+FROM rust:1.53-alpine3.13 as builder
 
 RUN apk add --no-cache musl-dev \
     && rm -rf /var/cache/apk/*
@@ -9,10 +9,15 @@ RUN cargo build --release
 
 FROM alpine:3.13
 
-ENV PATH /app/bin:$PATH
-RUN mkdir -p /app/bin
-RUN mkdir -p /app/conf
+ENV GID 1001
+ENV UID 1001
+ENV USER dockeruser
+ENV PATH=/app/bin:${PATH}
+
+# Copy our built program over and 
+RUN mkdir -p /app/bin /app/conf
 COPY --from=builder /build/target/release/pinyin_tone_marks /app/bin
 COPY --from=builder /build/conf/log4rs.yaml /app/conf
+WORKDIR /data
 
 ENTRYPOINT ["pinyin_tone_marks"]
