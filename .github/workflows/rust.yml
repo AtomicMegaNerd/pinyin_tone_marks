@@ -19,8 +19,8 @@ jobs:
   push_to_registry:
     name: Push Docker image to GitHub Packages
     needs: build
+    if: ${{ github.ref == 'refs/head/master' || github.event.pull_request.base.ref == 'master'}}
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/head/master' }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: atomicmeganerd/pinyin_tone_marks/pinyin_tone_marks
-          tags: ${APP_VERSION}:latest
+          tags: ${{ env.APP_VERSION }},latest
