@@ -4,7 +4,7 @@ on:
     branches:
       - "**"
   pull_request:
-    branches: [ master ]
+    types: [closed]
 env:
   CARGO_TERM_COLOR: always
 jobs:
@@ -19,7 +19,7 @@ jobs:
   push_to_registry:
     name: Push Docker image to GitHub Packages
     needs: build
-    if: ${{ github.ref == 'refs/head/master' || github.event.pull_request.base.ref == 'master'}}
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
