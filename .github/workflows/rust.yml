@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: atomicmeganerd/pinyin_tone_marks/pinyin_tone_marks
-          tags: ${APP_VERSION}:latest
+          tags: ${APP_VERSION},latest
