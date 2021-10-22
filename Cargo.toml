@@ -1,8 +1,8 @@
 [package]
 name = "pinyin_tone_marks"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Chris Dunphy <chris@megaparsec.ca>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 maplit = "1.0.2"
