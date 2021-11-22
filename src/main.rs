@@ -7,7 +7,8 @@ use pinyin_tone_marks::write_string_to_text_file;
 use pinyin_tone_marks::Config;
 
 fn main() {
-    log4rs::init_file("/app/conf/log4rs.yaml", Default::default()).unwrap();
+    env_logger::init();
+
     log::info!("Starting Pinyin Converter...");
 
     let config = Config::new(env::args()).unwrap_or_else(|err| {
