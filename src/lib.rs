@@ -51,7 +51,7 @@ impl Config {
 ///
 ///    Append modified lines to a new list called converted which the caller can use
 ///    to output pinyin tone marks.
-pub fn do_convert(text: &String) -> String {
+pub fn do_convert(text: &str) -> String {
     let data = PinyinData::new();
 
     let mut new_line = String::from(text);
@@ -60,11 +60,11 @@ pub fn do_convert(text: &String) -> String {
     let mut search_str: String = String::new();
 
     // We have to clone line here because we mutate it below...
-    for ch in text.clone().chars() {
+    for ch in text.chars() {
         // Add all letters that are not initial consonants to the search
         // string. Spaces and punctuation will be ignored.
         if ch.is_alphabetic() {
-            if !VOWELS.contains(ch) && search_str.len() == 0 {
+            if !VOWELS.contains(ch) && search_str.is_empty() {
                 continue;
             }
             search_str.push(ch);
@@ -85,13 +85,13 @@ pub fn do_convert(text: &String) -> String {
             // replace the text in the line.
             let key = search_str.as_str();
             if data.match_map4.contains_key(key) {
-                new_line = new_line.replacen(&key, &data.match_map4[key], 1);
+                new_line = new_line.replacen(&key, data.match_map4[key], 1);
             } else if data.match_map3.contains_key(key) {
-                new_line = new_line.replacen(&key, &data.match_map3[key], 1);
+                new_line = new_line.replacen(&key, data.match_map3[key], 1);
             } else if data.match_map2.contains_key(key) {
-                new_line = new_line.replacen(&key, &data.match_map2[key], 1);
+                new_line = new_line.replacen(&key, data.match_map2[key], 1);
             } else if data.match_map1.contains_key(key) {
-                new_line = new_line.replacen(&key, &data.match_map1[key], 1);
+                new_line = new_line.replacen(&key, data.match_map1[key], 1);
             }
             search_str.clear();
         } else {
