@@ -3,8 +3,7 @@
 use std::env;
 use std::fs;
 
-use text_colorizer::Colorize;
-
+use colored::Colorize;
 use pinyin_tone_marks::do_convert;
 
 ///

@@ -53,19 +53,10 @@ checksum = "3e2e65a1a2e43cfcb47a895c4c8b10d1f4a61097f9f254f183aee60cad9c651d"
 
 [[package]]
 name = "pinyin_tone_marks"
-version = "0.2.2"
-dependencies = [
- "maplit",
- "text-colorizer",
-]
-
-[[package]]
-name = "text-colorizer"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b30f9b94bd367aacc3f62cd28668b10c7ae1784c7d27e223a1c21646221a9166"
+version = "0.2.3"
 dependencies = [
  "colored",
+ "maplit",
 ]
 
 [[package]]

@@ -1,9 +1,9 @@
 [package]
 name = "pinyin_tone_marks"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["Chris Dunphy <chris@megaparsec.ca>"]
 edition = "2021"
 
 [dependencies]
 maplit = "1"
-text-colorizer = "1"
+colored = "2"
