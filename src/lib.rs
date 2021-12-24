@@ -1,37 +1,12 @@
 mod data;
-pub mod io;
-
-pub use io::get_file_text_as_string;
-pub use io::write_string_to_text_file;
 
 use data::PinyinData;
 use data::TONES;
 use data::VOWELS;
 
-pub struct Config {
-    pub infile: String,
-    pub outfile: String,
-}
-
-impl Config {
-    pub fn new(mut args: std::env::Args) -> Result<Config, &'static str> {
-        args.next();
-
-        let infile = match args.next() {
-            Some(arg) => arg,
-            None => return Err("Missing argument input file"),
-        };
-
-        let outfile = match args.next() {
-            Some(arg) => arg,
-            None => return Err("Missing argument output file"),
-        };
-
-        Ok(Config { infile, outfile })
-    }
-}
-
-/// This method is the meat of the program.
+/// # Function do_convert
+///
+/// This function is the meat of the program.
 ///
 /// This is the algorithm we are going to use:
 ///
@@ -76,7 +51,6 @@ pub fn do_convert(text: &str) -> String {
             // Don't forget to append the number as they are in the keys
             // to our HashMaps...
             search_str.push(ch);
-            log::debug!("Buffer = {}", &search_str);
 
             // Make sure that we always search the bigger dicts first otherwise
             // we will not catch the longer sequences. The search string is
@@ -100,7 +74,6 @@ pub fn do_convert(text: &str) -> String {
         }
     }
 
-    log::debug!("Converted line: {}", &new_line);
     new_line
 }
 
