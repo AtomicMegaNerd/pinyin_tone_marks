@@ -28,8 +28,7 @@ use data::VOWELS;
 ///    to output pinyin tone marks.
 pub fn do_convert(text: &str) -> String {
     let data = PinyinData::new();
-
-    let mut new_line = String::from(text);
+    let mut new_line = text.to_owned();
     // This string contains valid Pinyin initials and finals which
     // contain at least a vowel and a number...
     let mut search_str: String = String::new();

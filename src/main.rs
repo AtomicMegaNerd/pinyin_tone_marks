@@ -11,7 +11,7 @@ use pinyin_tone_marks::do_convert;
 /// This object holds the arguments passed into the program.
 /// The two arguments are:
 /// - infile - The path to the input text file to convert.
-/// - outfile - The destination file where the coverted text is written.
+/// - outfile - The destination file where the converted text is written.
 struct Config {
     infile: String,
     outfile: String,
@@ -20,13 +20,13 @@ struct Config {
 impl Config {
     fn new(args: std::env::Args) -> Config {
         let args: Vec<String> = args.skip(1).collect();
-        if args.len() != 2 {
-            panic!(
-                "{} wrong number of arguments: expected 2, got {}",
-                "Error:".red().bold(),
-                args.len(),
-            );
-        }
+
+        assert!(
+            !(args.len() != 2),
+            "{} wrong number of arguments: expected 2, got {}",
+            "Error:".red().bold(),
+            args.len()
+        );
 
         Config {
             infile: args[0].clone(),
