@@ -22,7 +22,7 @@ impl Config {
         let args: Vec<String> = args.skip(1).collect();
 
         assert!(
-            !(args.len() != 2),
+            args.len() == 2,
             "{} wrong number of arguments: expected 2, got {}",
             "Error:".red().bold(),
             args.len()
