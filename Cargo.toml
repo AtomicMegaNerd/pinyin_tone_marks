@@ -5,5 +5,5 @@ authors = ["Chris Dunphy <chris@megaparsec.ca>"]
 edition = "2021"
 
 [dependencies]
-maplit = "1"
-colored = "2"
+maplit = "1.0.2"
+colored = "2.0.0"
