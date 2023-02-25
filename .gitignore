@@ -1,3 +1,4 @@
 /target
 output.md
 .DS_Store
+.direnv
