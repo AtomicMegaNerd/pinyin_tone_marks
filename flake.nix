@@ -1,5 +1,5 @@
 {
-  description = "This is a program representing rational numbers in Python";
+  description = "This is a flake for building my pinyin-tone-marks Rust app";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
