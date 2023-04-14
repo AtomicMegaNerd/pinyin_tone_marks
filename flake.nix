@@ -17,9 +17,7 @@
             # The packages we need for this project
             buildInputs = with pkgs;
               [
-                rustc
-                cargo
-                clippy
+                rustup
                 libiconv
                 rust-analyzer
               ];
