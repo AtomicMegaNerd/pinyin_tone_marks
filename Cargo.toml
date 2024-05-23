@@ -6,4 +6,4 @@ edition = "2021"
 
 [dependencies]
 maplit = "1.0.2"
-colored = "2.0.4"
+colored = "2.1.0"
