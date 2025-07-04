@@ -23,7 +23,7 @@
           buildInputs = with pkgs; [
             toolchain
             libiconv
-            fenix.packages.${system}.rust-analyzer # nightly rust-analyzer
+            fenix.packages.${system}.stable.rust-analyzer
           ];
           RUST_SRC_PATH = "${toolchain}/lib/rustlib/src/rust/library";
         };
