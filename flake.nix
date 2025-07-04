@@ -17,13 +17,14 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         toolchain = fenix.packages.${system}.stable.toolchain;
+        ra = fenix.packages.${system}.stable.rust-analyzer;
       in
       {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             toolchain
+            ra
             libiconv
-            fenix.packages.${system}.stable.rust-analyzer
           ];
           RUST_SRC_PATH = "${toolchain}/lib/rustlib/src/rust/library";
         };
