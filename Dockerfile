@@ -1,6 +1,6 @@
-FROM rust:1.78.0-alpine3.19 as builder
+FROM rust:1.88.0-alpine3.22 as builder
 
-ENV MUSL_DEV_VER 1.2.4_git20230717-r4
+ENV MUSL_DEV_VER 1.2.5-r10
 RUN apk add --no-cache musl-dev==${MUSL_DEV_VER} \
     && rm -rf /var/cache/apk/*
 
@@ -8,7 +8,7 @@ WORKDIR /build
 COPY . /build
 RUN cargo build --release
 
-FROM alpine:3.19
+FROM alpine:3.22
 
 ENV GID 1001
 ENV UID 1001
